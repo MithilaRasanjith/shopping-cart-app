@@ -1,12 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { products } from "./data/sampleProducts";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [cartItems, setCartItems] = useState([]);
+
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCart = localStorage.getItem("cartItems");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
   const [currentPage, setCurrentPage] = useState("home");
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  function showMessage(text) {
+    setMessage(text);
+
+    setTimeout(() => {
+      setMessage("");
+    }, 2000);
+  }
 
   function addToCart(product) {
     const existingItem = cartItems.find((item) => item.id === product.id);
@@ -19,6 +37,7 @@ function App() {
       );
 
       setCartItems(updatedCart);
+      showMessage(`${product.name} quantity updated in cart.`);
     } else {
       const newItem = {
         ...product,
@@ -26,6 +45,7 @@ function App() {
       };
 
       setCartItems([...cartItems, newItem]);
+      showMessage(`${product.name} added to cart.`);
     }
   }
 
@@ -76,6 +96,12 @@ function App() {
           </button>
         </div>
       </nav>
+
+      {message && (
+        <div className="success-message">
+          {message}
+        </div>
+      )}
 
       {currentPage === "home" && (
         <Home

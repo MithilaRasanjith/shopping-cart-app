@@ -46,6 +46,19 @@ button {
   background: #dcfce7;
 }
 
+.success-message {
+  position: fixed;
+  top: 85px;
+  right: 25px;
+  background: #16a34a;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  z-index: 1000;
+}
+
 .page {
   padding: 30px;
   max-width: 1200px;
@@ -215,6 +228,13 @@ button {
 
   .hero {
     padding: 25px;
+  }
+
+  .success-message {
+    left: 20px;
+    right: 20px;
+    top: 120px;
+    text-align: center;
   }
 }
 
