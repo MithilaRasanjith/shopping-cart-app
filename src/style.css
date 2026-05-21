@@ -78,6 +78,33 @@ button {
   font-size: 26px;
 }
 
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.category-buttons button {
+  background: white;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.category-buttons button:hover {
+  background: #dcfce7;
+}
+
+.category-buttons .active-category {
+  background: #16a34a;
+  color: white;
+  border-color: #16a34a;
+}
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

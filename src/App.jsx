@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { products } from "./data/sampleProducts";
 import Home from "./pages/Home";
 
 function App() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
   return (
     <div>
       <nav className="navbar">
@@ -13,7 +16,11 @@ function App() {
         </div>
       </nav>
 
-      <Home products={products} />
+      <Home
+        products={products}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
     </div>
   );
 }
