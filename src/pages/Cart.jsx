@@ -2,7 +2,8 @@ function Cart({
   cartItems,
   increaseQuantity,
   decreaseQuantity,
-  removeFromCart
+  removeFromCart,
+  setCurrentPage
 }) {
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -79,8 +80,11 @@ function Cart({
               <span>${totalPrice.toFixed(2)}</span>
             </div>
 
-            <button className="checkout-btn">
-              Proceed to Checkout
+            <button
+                className="checkout-btn"
+                onClick={() => setCurrentPage("checkout")}
+            >
+                Proceed to Checkout
             </button>
           </div>
         </div>

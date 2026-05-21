@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { products } from "./data/sampleProducts";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -76,6 +77,12 @@ function App() {
     setCartItems(updatedCart);
   }
 
+  function placeOrder() {
+    setCartItems([]);
+    setCurrentPage("home");
+    showMessage("Order placed successfully.");
+  }
+
   const cartCount = cartItems.reduce(
     (total, item) => total + item.quantity,
     0
@@ -118,6 +125,15 @@ function App() {
           increaseQuantity={increaseQuantity}
           decreaseQuantity={decreaseQuantity}
           removeFromCart={removeFromCart}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
+
+      {currentPage === "checkout" && (
+        <Checkout
+          cartItems={cartItems}
+          placeOrder={placeOrder}
+          setCurrentPage={setCurrentPage}
         />
       )}
     </div>
