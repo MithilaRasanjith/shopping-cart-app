@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase/firebaseConfig";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { auth, db } from "./firebase/firebaseConfig";
 
 import { products } from "./data/sampleProducts";
 import Home from "./pages/Home";
@@ -90,16 +91,51 @@ function App() {
     setCartItems(updatedCart);
   }
 
-  function placeOrder() {
+  async function placeOrder() {
     if (!user) {
       showMessage("Please login before placing an order.");
       setCurrentPage("login");
       return;
     }
 
-    setCartItems([]);
-    setCurrentPage("home");
-    showMessage("Order placed successfully.");
+    if (cartItems.length === 0) {
+      showMessage("Your cart is empty.");
+      setCurrentPage("home");
+      return;
+    }
+
+    const totalPrice = cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+
+    const orderData = {
+      userId: user.uid,
+      userName: user.displayName,
+      userEmail: user.email,
+      items: cartItems.map((item) => ({
+        productId: item.id,
+        name: item.name,
+        category: item.category,
+        price: item.price,
+        quantity: item.quantity,
+        subtotal: item.price * item.quantity
+      })),
+      totalPrice: totalPrice,
+      status: "pending",
+      createdAt: serverTimestamp()
+    };
+
+    try {
+      await addDoc(collection(db, "orders"), orderData);
+
+      setCartItems([]);
+      setCurrentPage("home");
+      showMessage("Order placed and saved successfully.");
+    } catch (error) {
+      console.error("Order saving error:", error);
+      showMessage("Failed to place order. Please try again.");
+    }
   }
 
   const cartCount = cartItems.reduce(
