@@ -5,7 +5,7 @@ export const products = [
     category: "Vegetables",
     price: 2.5,
     description: "Fresh organic carrots.",
-    image: "https://via.placeholder.com/250x180?text=Carrot"
+    image: "https://placehold.co/250x180?text=Carrot"
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ export const products = [
     category: "Vegetables",
     price: 1.75,
     description: "Fresh red tomatoes.",
-    image: "https://via.placeholder.com/250x180?text=Tomato"
+    image: "https://placehold.co/250x180?text=Tomato"
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ export const products = [
     category: "Fruits",
     price: 1.5,
     description: "Sweet red apples.",
-    image: "https://via.placeholder.com/250x180?text=Apple"
+    image: "https://placehold.co/250x180?text=Apple"
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ export const products = [
     category: "Fruits",
     price: 1.25,
     description: "Fresh yellow bananas.",
-    image: "https://via.placeholder.com/250x180?text=Banana"
+    image: "https://placehold.co/250x180?text=Banana"
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ export const products = [
     category: "Cakes",
     price: 12.99,
     description: "Soft chocolate cake.",
-    image: "https://via.placeholder.com/250x180?text=Chocolate+Cake"
+    image: "https://placehold.co/250x180?text=Chocolate+Cake"
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ export const products = [
     category: "Cakes",
     price: 10.5,
     description: "Classic butter cake.",
-    image: "https://via.placeholder.com/250x180?text=Butter+Cake"
+    image: "https://placehold.co/250x180?text=Butter+Cake"
   },
   {
     id: 7,
@@ -53,7 +53,7 @@ export const products = [
     category: "Biscuits",
     price: 3.25,
     description: "Sweet cream biscuits.",
-    image: "https://via.placeholder.com/250x180?text=Cream+Biscuit"
+    image: "https://placehold.co/250x180?text=Cream+Biscuit"
   },
   {
     id: 8,
@@ -61,6 +61,6 @@ export const products = [
     category: "Biscuits",
     price: 3.75,
     description: "Crunchy chocolate biscuits.",
-    image: "https://via.placeholder.com/250x180?text=Chocolate+Biscuit"
+    image: "https://placehold.co/250x180?text=Chocolate+Biscuit"
   }
 ];
