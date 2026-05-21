@@ -1,18 +1,19 @@
 import { products } from "./data/sampleProducts";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <div>
-      <h1>Shopping Cart Application</h1>
+      <nav className="navbar">
+        <h2>FreshCart</h2>
 
-      {products.map((product) => (
-        <div key={product.id}>
-          <h2>{product.name}</h2>
-          <p>Category: {product.category}</p>
-          <p>Price: ${product.price}</p>
-          <p>{product.description}</p>
+        <div className="nav-links">
+          <button>Home</button>
+          <button>Cart</button>
         </div>
-      ))}
+      </nav>
+
+      <Home products={products} />
     </div>
   );
 }
