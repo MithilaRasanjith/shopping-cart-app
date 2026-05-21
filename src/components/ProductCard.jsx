@@ -1,4 +1,4 @@
-function ProductCard({ product }) {
+function ProductCard({ product, addToCart }) {
   return (
     <div className="product-card">
       <img
@@ -13,7 +13,10 @@ function ProductCard({ product }) {
         <p className="product-description">{product.description}</p>
         <p className="product-price">${product.price.toFixed(2)}</p>
 
-        <button className="add-cart-btn">
+        <button
+          className="add-cart-btn"
+          onClick={() => addToCart(product)}
+        >
           Add to Cart
         </button>
       </div>

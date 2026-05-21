@@ -175,6 +175,10 @@ button {
   background: #15803d;
 }
 
+.add-cart-btn:active {
+  transform: scale(0.97);
+}
+
 @media (max-width: 1000px) {
   .product-grid {
     grid-template-columns: repeat(3, 1fr);

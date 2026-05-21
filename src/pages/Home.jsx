@@ -1,6 +1,11 @@
 import ProductCard from "../components/ProductCard";
 
-function Home({ products, selectedCategory, setSelectedCategory }) {
+function Home({
+  products,
+  selectedCategory,
+  setSelectedCategory,
+  addToCart
+}) {
   const categories = ["All", "Vegetables", "Fruits", "Cakes", "Biscuits"];
 
   const filteredProducts =
@@ -37,6 +42,7 @@ function Home({ products, selectedCategory, setSelectedCategory }) {
             <ProductCard
               key={product.id}
               product={product}
+              addToCart={addToCart}
             />
           ))}
         </div>
