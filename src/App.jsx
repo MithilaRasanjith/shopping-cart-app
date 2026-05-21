@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebaseConfig";
+
 import { products } from "./data/sampleProducts";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import Login from "./pages/Login";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -14,10 +18,19 @@ function App() {
 
   const [currentPage, setCurrentPage] = useState("home");
   const [message, setMessage] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   function showMessage(text) {
     setMessage(text);
@@ -78,6 +91,12 @@ function App() {
   }
 
   function placeOrder() {
+    if (!user) {
+      showMessage("Please login before placing an order.");
+      setCurrentPage("login");
+      return;
+    }
+
     setCartItems([]);
     setCurrentPage("home");
     showMessage("Order placed successfully.");
@@ -100,6 +119,10 @@ function App() {
 
           <button onClick={() => setCurrentPage("cart")}>
             Cart ({cartCount})
+          </button>
+
+          <button onClick={() => setCurrentPage("login")}>
+            {user ? user.email : "Login"}
           </button>
         </div>
       </nav>
@@ -133,6 +156,14 @@ function App() {
         <Checkout
           cartItems={cartItems}
           placeOrder={placeOrder}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
+
+      {currentPage === "login" && (
+        <Login
+          user={user}
+          setUser={setUser}
           setCurrentPage={setCurrentPage}
         />
       )}
