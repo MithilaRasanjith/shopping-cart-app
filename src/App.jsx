@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  serverTimestamp,
+  where
+} from "firebase/firestore";
 import { auth, db } from "./firebase/firebaseConfig";
 
-import { products } from "./data/sampleProducts";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
@@ -21,6 +27,9 @@ function App() {
   const [message, setMessage] = useState("");
   const [user, setUser] = useState(null);
 
+  const [products, setProducts] = useState([]);
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
+
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
@@ -31,6 +40,33 @@ function App() {
     });
 
     return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const productsQuery = query(
+          collection(db, "products"),
+          where("active", "==", true)
+        );
+
+        const querySnapshot = await getDocs(productsQuery);
+
+        const productsFromFirestore = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+
+        setProducts(productsFromFirestore);
+      } catch (error) {
+        console.error("Product loading error:", error);
+        showMessage("Failed to load products.");
+      } finally {
+        setIsLoadingProducts(false);
+      }
+    }
+
+    fetchProducts();
   }, []);
 
   function showMessage(text) {
@@ -170,12 +206,21 @@ function App() {
       )}
 
       {currentPage === "home" && (
-        <Home
-          products={products}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          addToCart={addToCart}
-        />
+        isLoadingProducts ? (
+          <main className="page">
+            <section className="hero">
+              <h1>Loading products...</h1>
+              <p>Please wait while we load the product catalog.</p>
+            </section>
+          </main>
+        ) : (
+          <Home
+            products={products}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            addToCart={addToCart}
+          />
+        )
       )}
 
       {currentPage === "cart" && (
