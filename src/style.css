@@ -504,3 +504,53 @@ button {
 .logout-btn:hover {
   background: #b91c1c;
 }
+
+.admin-box {
+  background: white;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+.admin-box h2 {
+  color: #166534;
+  margin-top: 0;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-weight: bold;
+  color: #374151;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.admin-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+  outline: none;
+  border-color: #16a34a;
+}

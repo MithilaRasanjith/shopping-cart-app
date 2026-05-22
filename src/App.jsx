@@ -14,6 +14,7 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Login from "./pages/Login";
+import Admin from "./pages/Admin";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -42,30 +43,32 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const productsQuery = query(
-          collection(db, "products"),
-          where("active", "==", true)
-        );
+  async function fetchProducts() {
+    try {
+      setIsLoadingProducts(true);
 
-        const querySnapshot = await getDocs(productsQuery);
+      const productsQuery = query(
+        collection(db, "products"),
+        where("active", "==", true)
+      );
 
-        const productsFromFirestore = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data()
-        }));
+      const querySnapshot = await getDocs(productsQuery);
 
-        setProducts(productsFromFirestore);
-      } catch (error) {
-        console.error("Product loading error:", error);
-        showMessage("Failed to load products.");
-      } finally {
-        setIsLoadingProducts(false);
-      }
+      const productsFromFirestore = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      setProducts(productsFromFirestore);
+    } catch (error) {
+      console.error("Product loading error:", error);
+      showMessage("Failed to load products.");
+    } finally {
+      setIsLoadingProducts(false);
     }
+  }
 
+  useEffect(() => {
     fetchProducts();
   }, []);
 
@@ -193,6 +196,10 @@ function App() {
             Cart ({cartCount})
           </button>
 
+          <button onClick={() => setCurrentPage("admin")}>
+            Admin
+          </button>
+
           <button onClick={() => setCurrentPage("login")}>
             {user ? user.email : "Login"}
           </button>
@@ -246,6 +253,14 @@ function App() {
           user={user}
           setUser={setUser}
           setCurrentPage={setCurrentPage}
+        />
+      )}
+
+      {currentPage === "admin" && (
+        <Admin
+          user={user}
+          setCurrentPage={setCurrentPage}
+          refreshProducts={fetchProducts}
         />
       )}
     </div>
