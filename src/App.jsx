@@ -261,6 +261,7 @@ function App() {
           user={user}
           setCurrentPage={setCurrentPage}
           refreshProducts={fetchProducts}
+          products={products}
         />
       )}
     </div>
