@@ -28,6 +28,9 @@ function App() {
   const [message, setMessage] = useState("");
   const [user, setUser] = useState(null);
 
+  const ADMIN_EMAIL = "mithilawickz2002@gmail.com";
+  const isAdmin = user?.email === ADMIN_EMAIL;
+
   const [products, setProducts] = useState([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
 
@@ -196,9 +199,11 @@ function App() {
             Cart ({cartCount})
           </button>
 
-          <button onClick={() => setCurrentPage("admin")}>
-            Admin
-          </button>
+          {isAdmin && (
+            <button onClick={() => setCurrentPage("admin")}>
+              Admin
+            </button>
+          )}
 
           <button onClick={() => setCurrentPage("login")}>
             {user ? user.email : "Login"}
@@ -259,6 +264,7 @@ function App() {
       {currentPage === "admin" && (
         <Admin
           user={user}
+          isAdmin={isAdmin}
           setCurrentPage={setCurrentPage}
           refreshProducts={fetchProducts}
           products={products}
