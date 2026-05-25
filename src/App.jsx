@@ -26,8 +26,7 @@ function App() {
 
   const ADMIN_EMAILS = [
     "mithilawickz2002@gmail.com",
-    "secondadmin@gmail.com",
-    "thirdadmin@gmail.com"
+    "giharanipunajith.ai@gmail.com"
   ];
   const isAdmin = user?.email && ADMIN_EMAILS.includes(user.email);
 
