@@ -24,8 +24,13 @@ function App() {
   const [message, setMessage] = useState("");
   const [user, setUser] = useState(null);
 
-  const ADMIN_EMAIL = "mithilawickz2002@gmail.com";
-  const isAdmin = user?.email && user.email === ADMIN_EMAIL;
+  const ADMIN_EMAILS = [
+    "mithilawickz2002@gmail.com",
+    "secondadmin@gmail.com",
+    "thirdadmin@gmail.com"
+  ];
+  const isAdmin = user?.email && ADMIN_EMAILS.includes(user.email);
+
 
   const cartStorageKey = user ? `cartItems_${user.uid}` : "cartItems_guest";
 
