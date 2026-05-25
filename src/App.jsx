@@ -19,25 +19,32 @@ import Footer from "./components/Footer";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All");
-
-  const [cartItems, setCartItems] = useState(() => {
-    const savedCart = localStorage.getItem("cartItems");
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
-
+  const [cartItems, setCartItems] = useState([]);
   const [currentPage, setCurrentPage] = useState("home");
   const [message, setMessage] = useState("");
   const [user, setUser] = useState(null);
 
-  const ADMIN_EMAIL = "mithilawickz2002@gmail.com";
-  const isAdmin = user?.email === ADMIN_EMAIL;
+  const ADMIN_EMAIL = "giharanipunajith.ai@gmail.com";
+  const isAdmin = user?.email && user.email === ADMIN_EMAIL;
+
+  const cartStorageKey = user ? `cartItems_${user.uid}` : "cartItems_guest";
 
   const [products, setProducts] = useState([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
+    const savedCart = localStorage.getItem(cartStorageKey);
+
+    if (savedCart) {
+      setCartItems(JSON.parse(savedCart));
+    } else {
+      setCartItems([]);
+    }
+  }, [cartStorageKey]);
+
+  useEffect(() => {
+    localStorage.setItem(cartStorageKey, JSON.stringify(cartItems));
+  }, [cartItems, cartStorageKey]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
