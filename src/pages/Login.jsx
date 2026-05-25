@@ -1,4 +1,9 @@
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import {
+  FacebookAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut
+} from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 
 function Login({ user, setUser, setCurrentPage }) {
@@ -12,6 +17,19 @@ function Login({ user, setUser, setCurrentPage }) {
     } catch (error) {
       console.error("Google login error:", error);
       alert("Google login failed. Please try again.");
+    }
+  }
+
+  async function loginWithFacebook() {
+    try {
+      const provider = new FacebookAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+
+      setUser(result.user);
+      setCurrentPage("home");
+    } catch (error) {
+      console.error("Facebook login error:", error);
+      alert("Facebook login failed. Please try again.");
     }
   }
 
@@ -53,10 +71,14 @@ function Login({ user, setUser, setCurrentPage }) {
         ) : (
           <>
             <h2>Welcome to FreshCart</h2>
-            <p>Please sign in using your Google account.</p>
+            <p>Please sign in using your Google or Facebook account.</p>
 
             <button className="google-login-btn" onClick={loginWithGoogle}>
               Sign in with Google
+            </button>
+
+            <button className="facebook-login-btn" onClick={loginWithFacebook}>
+              Sign in with Facebook
             </button>
           </>
         )}

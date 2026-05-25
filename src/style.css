@@ -143,9 +143,10 @@ button {
 
 .product-image {
   width: 100%;
-  height: 180px;
+  height: 190px;
   object-fit: cover;
   display: block;
+  background: #f3f4f6;
 }
 
 .product-info {
@@ -283,6 +284,7 @@ button {
   height: 100px;
   object-fit: cover;
   border-radius: 12px;
+  background: #f3f4f6;
 }
 
 .cart-item-details h2 {
@@ -611,6 +613,7 @@ button {
   height: 75px;
   object-fit: cover;
   border-radius: 10px;
+  background: #f3f4f6;
 }
 
 .admin-product-info h3 {
@@ -671,4 +674,33 @@ button {
   .admin-form-actions {
     flex-direction: column;
   }
+}
+
+.facebook-login-btn {
+  background: #1877f2;
+  color: white;
+  border: none;
+  padding: 13px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.facebook-login-btn:hover {
+  background: #166fe5;
+}
+
+.footer {
+  margin-top: 40px;
+  padding: 24px;
+  background: #166534;
+  color: white;
+  text-align: center;
+}
+
+.footer p {
+  margin: 6px 0;
 }

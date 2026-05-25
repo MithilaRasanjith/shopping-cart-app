@@ -15,6 +15,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
+import Footer from "./components/Footer";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -270,6 +271,8 @@ function App() {
           products={products}
         />
       )}
+
+      <Footer />
     </div>
   );
 }

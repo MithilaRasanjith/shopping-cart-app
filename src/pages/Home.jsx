@@ -23,7 +23,9 @@ function Home({
       </section>
 
       <section>
-        <h2 className="section-title">Available Products</h2>
+        <h2 className="section-title">
+          Available Products ({filteredProducts.length})
+        </h2>
 
         <div className="category-buttons">
           {categories.map((category) => (
@@ -37,15 +39,22 @@ function Home({
           ))}
         </div>
 
-        <div className="product-grid">
-          {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              addToCart={addToCart}
-            />
-          ))}
-        </div>
+        {filteredProducts.length === 0 ? (
+          <div className="empty-cart">
+            <h2>No products found</h2>
+            <p>There are no products available in this category right now.</p>
+          </div>
+        ) : (
+          <div className="product-grid">
+            {filteredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                addToCart={addToCart}
+              />
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );
